@@ -25,12 +25,12 @@ var svg=d3
 var chartGroup=svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-var XAxis="Poverty";
+var chosenXAxis="poverty";
 
 function xScale(mydata, chosenXAxis) {
     // create scales
     var xLinearScale = d3.scaleLinear()
-      .domain([d3.min(mydta, d => d[chosenXAxis]) * 0.8,
+      .domain([d3.min(mydata, d => d[chosenXAxis]) * 0.8,
         d3.max(mydata, d => d[chosenXAxis]) * 1.2
       ])
       .range([0, width]);
@@ -91,7 +91,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     return circlesGroup;
 }
   
-  d3.csv("data.csv").then(function(mydata, err) {
+d3.csv("data.csv").then(function(mydata, err) {
     if (err) throw err;
   
     // parse data
@@ -109,7 +109,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
   
     // Create y scale function
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(hairData, d => d.healthcare)])
+      .domain([0, d3.max(mydata, d => d.healthcare)])
       .range([height, 0]);
   
     // Create initial axis functions
